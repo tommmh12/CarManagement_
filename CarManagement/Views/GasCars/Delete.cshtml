@@ -1,0 +1,8 @@
+﻿@model CarManagement.Models.GasCar
+<h2>Xác nhận xoá xe xăng</h2>
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <p>Bạn có chắc chắn xoá xe <strong>@Model.Model</strong>?</p>
+    <button type="submit" class="btn btn-danger">Xoá</button>
+    <a href="/GasCars" class="btn btn-secondary">Huỷ</a>
+</form>

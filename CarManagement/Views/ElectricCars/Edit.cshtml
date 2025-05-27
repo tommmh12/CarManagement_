@@ -1,0 +1,12 @@
+﻿@model CarManagement.Models.ElectricCar
+<h2>Sửa xe điện</h2>
+<form asp-action="Edit" method="post">
+    <input type="hidden" asp-for="Id" />
+    <div class="mb-3"><label>Model</label><input asp-for="Model" class="form-control" /></div>
+    <div class="mb-3"><label>Pin (kWh)</label><input asp-for="Battery" class="form-control" /></div>
+    <div class="mb-3"><label>Tầm xa (km)</label><input asp-for="RangeKm" class="form-control" /></div>
+    <div class="mb-3"><label>Giá</label><input asp-for="Price" class="form-control" /></div>
+    <div class="mb-3"><label>Hãng ID</label><input asp-for="BranchId" class="form-control" /></div>
+    <div class="mb-3"><label>Ảnh</label><input asp-for="ImageUrl" class="form-control" /></div>
+    <button class="btn btn-primary">Cập nhật</button>
+</form>

@@ -1,0 +1,18 @@
+﻿@model CarManagement.Models.Branch
+@{
+    ViewData["Title"] = "Thêm hãng xe";
+}
+<h2>@ViewData["Title"]</h2>
+
+<form asp-action="Create" method="post" class="mt-3">
+    <div class="mb-3">
+        <label for="Name" class="form-label">Tên hãng</label>
+        <input asp-for="Name" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label for="Country" class="form-label">Quốc gia</label>
+        <input asp-for="Country" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-success">Lưu</button>
+    <a class="btn btn-secondary" href="/Branches">Quay lại</a>
+</form>

@@ -1,0 +1,15 @@
+﻿@model CarManagement.Models.Branch
+@{
+    ViewData["Title"] = "Xóa hãng xe";
+}
+<h2>@ViewData["Title"]</h2>
+
+<div class="alert alert-warning mt-3">
+    Bạn có chắc chắn muốn xóa hãng xe: <strong>@Model.Name</strong>?
+</div>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Xác nhận xóa</button>
+    <a class="btn btn-secondary" href="/Branches">Hủy</a>
+</form>

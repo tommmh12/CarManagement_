@@ -1,0 +1,48 @@
+﻿@model CarManagement.Models.Cars
+<h2>Thêm xe mới</h2>
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label>Loại xe</label>
+        <select asp-for="CarType" class="form-select" id="carType">
+            <option value="Electric">Xe điện</option>
+            <option value="Gas">Xe xăng</option>
+        </select>
+    </div>
+
+    <div class="mb-3"><label>Model</label><input asp-for="Model" class="form-control" /></div>
+    <div class="mb-3"><label>Giá</label><input asp-for="Price" class="form-control" /></div>
+    <div class="mb-3"><label>Hãng ID</label><input asp-for="BranchId" class="form-control" /></div>
+    <div class="mb-3"><label>Ảnh (URL)</label><input asp-for="ImageUrl" class="form-control" /></div>
+
+    <div id="electricFields">
+        <div class="mb-3"><label>Pin</label><input asp-for="Battery" class="form-control" /></div>
+        <div class="mb-3"><label>Tầm xa</label><input asp-for="RangeKm" class="form-control" /></div>
+    </div>
+
+    <div id="gasFields" style="display:none">
+        <div class="mb-3"><label>Tiêu hao</label><input asp-for="FuelEff" class="form-control" /></div>
+    </div>
+
+    <button class="btn btn-success">Lưu</button>
+</form>
+
+@section Scripts {
+    <script>
+        const carType = document.getElementById("carType");
+        const electric = document.getElementById("electricFields");
+        const gas = document.getElementById("gasFields");
+
+        function toggleFields() {
+            if (carType.value === "Electric") {
+                electric.style.display = "block";
+                gas.style.display = "none";
+            } else {
+                electric.style.display = "none";
+                gas.style.display = "block";
+            }
+        }
+
+        carType.addEventListener("change", toggleFields);
+        window.addEventListener("load", toggleFields);
+    </script>
+}

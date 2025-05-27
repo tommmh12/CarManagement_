@@ -1,0 +1,27 @@
+﻿@model List<CarManagement.Models.GasCar>
+@{
+    ViewData["Title"] = "Danh sách xe xăng";
+}
+<h2 class="text-dark mb-4"><span class="text-warning">Danh sách</span> xe xăng</h2>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @foreach (var car in Model)
+    {
+        <div class="col">
+            <div class="card shadow-sm border border-warning-subtle h-100">
+                <img src="@car.ImageUrl" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@car.Model" />
+                <div class="card-body">
+                    <h5 class="card-title text-warning fw-bold">@car.Model</h5>
+                    <p class="mb-1"><strong>Hãng:</strong> @car.BranchId</p>
+                    <p class="mb-1"><i class="bi bi-droplet-half"></i> Tiêu hao nhiên liệu: <strong>@car.FuelEff</strong> L/100km</p>
+                    <p class="text-dark"><strong>Giá:</strong> <span class="text-success">@car.Price.ToString("N0")</span> USD</p>
+                </div>
+                <div class="card-footer bg-white border-top-0 d-flex justify-content-between">
+                    <a href="/GasCars/Edit/@car.Id" class="btn btn-warning btn-sm">Sửa</a>
+                    <a href="#" class="btn btn-info btn-sm">Chi tiết</a>
+                    <a href="/GasCars/Delete/@car.Id" class="btn btn-danger btn-sm">Xoá</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
