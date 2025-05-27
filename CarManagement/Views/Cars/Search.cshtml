@@ -1,0 +1,42 @@
+﻿@model CarManagement.Models.CarSearchViewModel
+@{
+    ViewData["Title"] = "Tìm kiếm xe";
+}
+
+<h2 class="text-primary mb-4">🔍 Tìm kiếm xe</h2>
+
+<form asp-action="SearchResult" method="get" class="row g-3 mb-4">
+    <div class="col-md-4">
+        <label class="form-label">Hãng xe</label>
+        <select asp-for="BranchId" class="form-select">
+            <option value="">-- Chọn hãng --</option>
+            @foreach (var b in (List<CarManagement.Models.Branch>)ViewBag.Branches)
+            {
+                    <option value="@b.Id">@b.Name</option>
+            }
+        </select>
+    </div>
+
+    <div class="col-md-4">
+        <label class="form-label">Loại xe</label>
+        <select asp-for="CarType" class="form-select">
+            <option value="">-- Chọn loại xe --</option>
+            <option value="Gas">Xe xăng</option>
+            <option value="Electric">Xe điện</option>
+        </select>
+    </div>
+
+    <div class="col-md-2">
+        <label class="form-label">Giá từ</label>
+        <input asp-for="MinPrice" class="form-control" />
+    </div>
+
+    <div class="col-md-2">
+        <label class="form-label">Giá đến</label>
+        <input asp-for="MaxPrice" class="form-control" />
+    </div>
+
+    <div class="col-12">
+        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+    </div>
+</form>

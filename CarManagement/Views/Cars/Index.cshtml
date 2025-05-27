@@ -1,46 +1,58 @@
 ﻿@model CarManagement.Models.CarsIndexViewModel
+
 @{
     ViewData["Title"] = "Tổng hợp xe";
 }
+
 <h2 class="text-dark mb-4"><i class="bi bi-car-front-fill text-primary"></i> Tổng hợp các dòng xe</h2>
 
-<a class="btn btn-success mb-4" href="/Cars/Create">➕ Thêm xe mới</a>
+<a class="btn btn-success mb-4" asp-action="Create">➕ Thêm xe mới</a>
 
 <!-- Xe điện -->
-<h4 class="text-primary mb-3"><i class="bi bi-lightning-charge-fill"></i> Xe điện</h4>
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
-    @foreach (var car in Model.ElectricCars)
-    {
-        <div class="col">
-            <div class="card shadow-sm border border-primary-subtle h-100">
-                <img src="@car.ImageUrl" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@car.Model" />
-                <div class="card-body">
-                    <h5 class="card-title text-primary fw-bold">@car.Model</h5>
-                    <p class="mb-1"><strong>Hãng:</strong> @car.BranchId</p>
-                    <p class="mb-1"><i class="bi bi-battery-half"></i> Pin: @car.Battery kWh</p>
-                    <p class="mb-1"><i class="bi bi-speedometer"></i> Tầm hoạt động: @car.RangeKm km</p>
-                    <p><strong>Giá:</strong> <span class="text-success">@car.Price.ToString("N0")</span> USD</p>
-                </div>
-            </div>
+@if (Model.ElectricCars.Any())
+{
+        <h4 class="text-primary mb-3"><i class="bi bi-lightning-charge-fill"></i> Xe điện</h4>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+        @foreach (var car in Model.ElectricCars)
+        {
+                    <div class="col">
+                        <div class="card shadow-sm border border-primary-subtle h-100">
+                            <img src="@car.ImageUrl" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@car.Model" />
+                            <div class="card-body">
+                                <h5 class="card-title text-primary fw-bold">@car.Model</h5>
+                                <p class="mb-1"><strong>Hãng:</strong> @car.BranchId</p> <!-- Thay BranchId bằng BranchName nếu có -->
+                                <p class="mb-1"><i class="bi bi-battery-half"></i> Pin: @car.Battery kWh</p>
+                                <p class="mb-1"><i class="bi bi-speedometer"></i> Tầm hoạt động: @car.RangeKm km</p>
+                                <p><strong>Giá:</strong> <span class="text-success">@car.Price.ToString("N0")</span> VNĐ</p>
+                            </div>
+                        </div>
+                    </div>
+        }
         </div>
-    }
-</div>
+}
 
 <!-- Xe xăng -->
-<h4 class="text-warning mb-3"><i class="bi bi-fuel-pump-fill"></i> Xe xăng</h4>
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-    @foreach (var car in Model.GasCars)
-    {
-        <div class="col">
-            <div class="card shadow-sm border border-warning-subtle h-100">
-                <img src="@car.ImageUrl" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@car.Model" />
-                <div class="card-body">
-                    <h5 class="card-title text-warning fw-bold">@car.Model</h5>
-                    <p class="mb-1"><strong>Hãng:</strong> @car.BranchId</p>
-                    <p class="mb-1"><i class="bi bi-droplet-half"></i> Tiêu hao nhiên liệu: @car.FuelEff L/100km</p>
-                    <p><strong>Giá:</strong> <span class="text-success">@car.Price.ToString("N0")</span> USD</p>
-                </div>
-            </div>
+@if (Model.GasCars.Any())
+{
+        <h4 class="text-warning mb-3"><i class="bi bi-fuel-pump-fill"></i> Xe xăng</h4>
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        @foreach (var car in Model.GasCars)
+        {
+                    <div class="col">
+                        <div class="card shadow-sm border border-warning-subtle h-100">
+                            <img src="@car.ImageUrl" class="card-img-top" style="height: 200px; object-fit: cover;" alt="@car.Model" />
+                            <div class="card-body">
+                                <h5 class="card-title text-warning fw-bold">@car.Model</h5>
+                                <p class="mb-1"><strong>Hãng:</strong> @car.BranchId</p> <!-- Thay BranchId bằng BranchName nếu có -->
+                                <p class="mb-1"><i class="bi bi-droplet-half"></i> Tiêu hao: @car.FuelEff L/100km</p>
+                                <p><strong>Giá:</strong> <span class="text-success">@car.Price.ToString("N0")</span> VNĐ</p>
+                            </div>
+                        </div>
+                    </div>
+        }
         </div>
-    }
-</div>
+}
+else
+{
+        <p class="text-muted">Không có dữ liệu xe xăng.</p>
+}
