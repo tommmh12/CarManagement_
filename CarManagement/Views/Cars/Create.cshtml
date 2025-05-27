@@ -1,48 +1,96 @@
 ﻿@model CarManagement.Models.Cars
-<h2>Thêm xe mới</h2>
-<form asp-action="Create" method="post">
+
+@{
+    ViewData["Title"] = "Thêm mới xe";
+}
+
+<h2 class="mb-4 text-primary">🚗 Thêm mới xe</h2>
+
+<form asp-action="Create" method="post" class="border rounded p-4 shadow-sm bg-light">
+    <!-- Loại xe -->
     <div class="mb-3">
-        <label>Loại xe</label>
-        <select asp-for="CarType" class="form-select" id="carType">
-            <option value="Electric">Xe điện</option>
-            <option value="Gas">Xe xăng</option>
+        <label asp-for="CarType" class="form-label fw-bold">Loại xe</label>
+        <select asp-for="CarType" class="form-select" id="CarType">
+            <option value="">-- Chọn loại xe --</option>
+            <option value="Electric">Xe điện ⚡</option>
+            <option value="Gas">Xe xăng ⛽</option>
         </select>
+        <span asp-validation-for="CarType" class="text-danger"></span>
     </div>
 
-    <div class="mb-3"><label>Model</label><input asp-for="Model" class="form-control" /></div>
-    <div class="mb-3"><label>Giá</label><input asp-for="Price" class="form-control" /></div>
-    <div class="mb-3"><label>Hãng ID</label><input asp-for="BranchId" class="form-control" /></div>
-    <div class="mb-3"><label>Ảnh (URL)</label><input asp-for="ImageUrl" class="form-control" /></div>
-
-    <div id="electricFields">
-        <div class="mb-3"><label>Pin</label><input asp-for="Battery" class="form-control" /></div>
-        <div class="mb-3"><label>Tầm xa</label><input asp-for="RangeKm" class="form-control" /></div>
+    <!-- Tên xe -->
+    <div class="mb-3">
+        <label asp-for="Model" class="form-label">Tên xe</label>
+        <input asp-for="Model" class="form-control" placeholder="VD: VF3, Corolla" />
+        <span asp-validation-for="Model" class="text-danger"></span>
     </div>
 
-    <div id="gasFields" style="display:none">
-        <div class="mb-3"><label>Tiêu hao</label><input asp-for="FuelEff" class="form-control" /></div>
+
+    <!-- Hãng xe -->
+    <div class="mb-3">
+        <label asp-for="BranchId" class="form-label fw-bold">Hãng sản xuất</label>
+        <select asp-for="BranchId" class="form-select">
+            <option value="">-- Chọn hãng --</option>
+            @foreach (var b in (List<CarManagement.Models.Branch>)ViewBag.Branches)
+            {
+                    <option value="@b.Id">@b.Name (@b.Country)</option>
+            }
+        </select>
+        <span asp-validation-for="BranchId" class="text-danger"></span>
     </div>
 
-    <button class="btn btn-success">Lưu</button>
+    <!-- Giá -->
+    <div class="mb-3">
+        <label asp-for="Price" class="form-label fw-bold">Giá bán (VNĐ)</label>
+        <input asp-for="Price" class="form-control" placeholder="VD: 890000000" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+
+    <!-- Ảnh -->
+    <div class="mb-3">
+        <label asp-for="ImageUrl" class="form-label fw-bold">Link hình ảnh</label>
+        <input asp-for="ImageUrl" class="form-control" placeholder="https://example.com/car.jpg" />
+    </div>
+
+    <!-- Trường dành riêng cho xe điện -->
+    <div id="electricFields" style="display:none;">
+        <div class="mb-3">
+            <label asp-for="Battery" class="form-label fw-bold">Dung lượng pin (kWh)</label>
+            <input asp-for="Battery" class="form-control" placeholder="VD: 60" />
+        </div>
+        <div class="mb-3">
+            <label asp-for="RangeKm" class="form-label fw-bold">Quãng đường (km)</label>
+            <input asp-for="RangeKm" class="form-control" placeholder="VD: 400" />
+        </div>
+    </div>
+
+    <!-- Trường dành riêng cho xe xăng -->
+    <div id="gasFields" style="display:none;">
+        <div class="mb-3">
+            <label asp-for="FuelEff" class="form-label fw-bold">Hiệu suất nhiên liệu (km/lít)</label>
+            <input asp-for="FuelEff" class="form-control" placeholder="VD: 15.5" />
+        </div>
+    </div>
+
+    <div class="text-end mt-4">
+        <button type="submit" class="btn btn-success px-4">✅ Thêm xe</button>
+        <a asp-action="Index" class="btn btn-secondary ms-2">🔙 Quay lại danh sách</a>
+    </div>
 </form>
 
 @section Scripts {
-    <script>
-        const carType = document.getElementById("carType");
-        const electric = document.getElementById("electricFields");
-        const gas = document.getElementById("gasFields");
+        <script>
+            const carType = document.getElementById("CarType");
+            const electricFields = document.getElementById("electricFields");
+            const gasFields = document.getElementById("gasFields");
 
-        function toggleFields() {
-            if (carType.value === "Electric") {
-                electric.style.display = "block";
-                gas.style.display = "none";
-            } else {
-                electric.style.display = "none";
-                gas.style.display = "block";
+            function toggleFields() {
+                const type = carType.value;
+                electricFields.style.display = (type === "Electric") ? "block" : "none";
+                gasFields.style.display = (type === "Gas") ? "block" : "none";
             }
-        }
 
-        carType.addEventListener("change", toggleFields);
-        window.addEventListener("load", toggleFields);
-    </script>
+            carType.addEventListener("change", toggleFields);
+            window.addEventListener("load", toggleFields);
+        </script>
 }

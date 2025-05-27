@@ -15,7 +15,7 @@ namespace CarManagement.Controllers
             _configuration = configuration;
         }
 
-        private string GetConnection() =>
+        private string? GetConnection() =>
             _configuration.GetConnectionString("DefaultConnection");
 
         // GET: Branches
